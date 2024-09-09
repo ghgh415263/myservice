@@ -1,17 +1,17 @@
 package com.cloudservice.myservice;
 
 import lombok.Getter;
-import lombok.Setter;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 
 @Getter
-@Setter
-@Configuration
-@ConfigurationProperties(prefix = "kakao")
-@PropertySource(value = "classpath:oauth.yml", factory = YamlPropertySourceFactory.class)
+@ConfigurationProperties("kakao")
+@RequiredArgsConstructor
+@ToString
 public class OauthYml {
-
-    private String clientSecret;
+    private final String clientSecret;
+    private final String grantType;
+    private final String clientId;
+    private final String redirectUri;
 }

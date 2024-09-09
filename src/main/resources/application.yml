@@ -1,3 +1,7 @@
 spring:
   application:
     name: myservice
+
+  config:
+    import:
+      - classpath:/oauth.yml

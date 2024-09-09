@@ -19,9 +19,9 @@ public class OauthProvider {
     public KaKaoAccessTokenRes getAccessToken(String authorizationCode) {
 
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("grant_type", "authorization_code");
-        params.add("client_id", "e385bf5e38f12aa2aef69ac404656930");
-        params.add("redirect_uri", "http://localhost:8080/login/oauth2/code/kakao");
+        params.add("grant_type", oauthYml.getGrantType());
+        params.add("client_id", oauthYml.getClientId());
+        params.add("redirect_uri", oauthYml.getRedirectUri());
         params.add("code", authorizationCode);
         params.add("client_secret", oauthYml.getClientSecret());
 
