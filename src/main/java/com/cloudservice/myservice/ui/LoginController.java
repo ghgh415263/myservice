@@ -1,6 +1,5 @@
 package com.cloudservice.myservice.ui;
 
-import com.cloudservice.myservice.OauthYml;
 import com.cloudservice.myservice.application.MemberLoginService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

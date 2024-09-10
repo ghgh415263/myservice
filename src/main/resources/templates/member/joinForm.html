@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/noNavbarLayout :: layout(~{::title}, ~{::section})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>JoinForm</title>
+</head>
+<body>
+    <section>
+
+        <div class="py-5 text-center">
+            <h2>회원가입</h2>
+        </div>
+
+        <form action="/members/create" method="post" th:object="${memberSaveRequest}" id="joinForm">
+
+            <div class="row mb-3">
+                <label for="loginId" class="form-label">loginId</label>
+                <div class="col">
+                    <input type="text" th:field="*{loginId}" class="form-control" placeholder="4~32글자" th:errorclass="is-invalid"/>
+                    <div class="text-danger" th:errors="*{loginId}" id="usernameAlert"/>
+                    <input type="hidden" id="username-check-flag" value="isDuplicated"/>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-outline-primary" id="checkDuplicateUsernameBtn">중복 체크</button>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="text" th:field="*{password}" class="form-control" placeholder="3~32글자" th:errorclass="is-invalid"/>
+                <div class="text-danger" th:errors="*{password}" id="passwordAlert"/>
+            </div>
+
+            <div class="py-3">
+                <button type="submit" class="btn btn-outline-primary">제출</button>
+            </div>
+        </form>
+    </section>
+</body>
+</html>
