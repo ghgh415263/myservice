@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
-@Transactional(readOnly = true) // JPA 더티체킹 안함
+@Transactional
 public class OauthService {
 
     private final MemberRepository memberRepository;
