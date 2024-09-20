@@ -1,5 +1,6 @@
 package com.cloudservice.myservice.ui;
 
+import com.cloudservice.myservice.application.MemberSaveReq;
 import com.cloudservice.myservice.application.MemberSaveService;
 import com.cloudservice.myservice.domain.WeakPasswordException;
 import lombok.RequiredArgsConstructor;
@@ -19,12 +20,12 @@ public class JoinController {
     private final MemberSaveService memberSaveService;
 
     @GetMapping
-    public String joinPage(@ModelAttribute MemberSaveRequest memberSaveRequest) {
+    public String joinPage(@ModelAttribute MemberSaveReq memberSaveReq) {
         return "member/joinForm";
     }
 
     @PostMapping
-    public String join(@ModelAttribute @Validated MemberSaveRequest memberSaveRequest,
+    public String join(@ModelAttribute @Validated MemberSaveReq memberSaveReq,
                        BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
@@ -32,7 +33,7 @@ public class JoinController {
         }
 
         try {
-            memberSaveService.saveMember(memberSaveRequest);
+            memberSaveService.saveMember(memberSaveReq);
         }
         catch(WeakPasswordException e){
             bindingResult.rejectValue("password",null, e.getMessage());

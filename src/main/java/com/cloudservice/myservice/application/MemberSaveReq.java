@@ -1,4 +1,4 @@
-package com.cloudservice.myservice.ui;
+package com.cloudservice.myservice.application;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class MemberSaveRequest {
+public class MemberSaveReq {
 
     @Size(min=6, max=20)
     @NotBlank

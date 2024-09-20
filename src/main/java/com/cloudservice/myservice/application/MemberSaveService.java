@@ -1,7 +1,6 @@
 package com.cloudservice.myservice.application;
 
 import com.cloudservice.myservice.domain.*;
-import com.cloudservice.myservice.ui.MemberSaveRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,19 +17,17 @@ public class MemberSaveService {
     private final PasswordMeter passwordMeter;
 
     @Transactional
-    public void saveMember(MemberSaveRequest memberSaveRequest) {
+    public void saveMember(MemberSaveReq memberSaveReq) {
 
-        if (passwordMeter.isWeak(memberSaveRequest.getPassword()))
+        if (passwordMeter.isWeak(memberSaveReq.getPassword()))
             throw new WeakPasswordException();
 
-        if (memberCheckService.isDuplicateUsername(memberSaveRequest.getLoginId()))
+        if (memberCheckService.isDuplicateUsername(memberSaveReq.getLoginId()))
             throw new DuplicatedLoginIdException();
 
-        String encodedPassword = passwordEncoder.hashPassword(memberSaveRequest.getPassword());
-
         Member newMember = Member.builder()
-                .loginId(memberSaveRequest.getLoginId())
-                .password(encodedPassword)
+                .loginId(memberSaveReq.getLoginId())
+                .password(passwordEncoder.hashPassword(memberSaveReq.getPassword()))
                 .loginProviderType(LoginProviderType.WE)
                 .build();
 
