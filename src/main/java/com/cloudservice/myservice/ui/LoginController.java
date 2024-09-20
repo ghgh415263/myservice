@@ -1,6 +1,7 @@
 package com.cloudservice.myservice.ui;
 
 import com.cloudservice.myservice.application.MemberLoginService;
+import io.micrometer.core.annotation.Counted;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.constraints.NotBlank;
@@ -23,6 +24,7 @@ public class LoginController {
         return "/member/loginForm";
     }
 
+    @Counted("direct.login")
     @PostMapping("/login")
     public String login(@Validated @ModelAttribute LoginForm form,
                         BindingResult bindingResult,

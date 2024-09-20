@@ -1,6 +1,7 @@
 package com.cloudservice.myservice.ui;
 
 import com.cloudservice.myservice.application.OauthService;
+import io.micrometer.core.annotation.Counted;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ public class OauthController {
 
     private final OauthService oauthService;
 
+    @Counted("oauth.login")
     @GetMapping("/login/oauth2/code/kakao")
     public String kakaoCallback(@RequestParam String code, HttpServletRequest httpServletRequest){
 

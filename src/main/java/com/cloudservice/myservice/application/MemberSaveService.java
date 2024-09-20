@@ -28,7 +28,7 @@ public class MemberSaveService {
         Member newMember = Member.builder()
                 .loginId(memberSaveReq.getLoginId())
                 .password(passwordEncoder.hashPassword(memberSaveReq.getPassword()))
-                .loginProviderType(LoginProviderType.WE)
+                .loginProviderType(LoginProviderType.DIRECT)
                 .build();
 
         memberRepository.save(newMember);  //같은 유저네임의 insert가 중복될 경우, 그냥 시스템오류라고 띄워주는 것이 좋다.
