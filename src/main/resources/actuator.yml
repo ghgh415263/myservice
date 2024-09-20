@@ -1,0 +1,12 @@
+management:
+  server:
+    port: 9095
+
+  endpoint:
+    health:
+      show-details: always
+
+  endpoints:
+    web:
+      exposure:
+        include: "*"

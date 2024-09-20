@@ -5,3 +5,4 @@ spring:
   config:
     import:
       - classpath:/oauth.yml
+      - classpath:/actuator.yml
