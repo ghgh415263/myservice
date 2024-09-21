@@ -6,3 +6,15 @@ spring:
     import:
       - classpath:/oauth.yml
       - classpath:/actuator.yml
+
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        highlight_sql: true
+        jdbc:
+          batch_size: 100
+
+logging:
+  config: classpath:logback.xml

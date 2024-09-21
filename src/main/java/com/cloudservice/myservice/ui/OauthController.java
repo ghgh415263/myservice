@@ -5,10 +5,11 @@ import io.micrometer.core.annotation.Counted;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class OauthController {
@@ -19,6 +20,7 @@ public class OauthController {
     @GetMapping("/login/oauth2/code/kakao")
     public String kakaoCallback(@RequestParam String code, HttpServletRequest httpServletRequest){
 
+        log.info("asd");
         Long loginMemberId = oauthService.login(code);
 
         HttpSession session = httpServletRequest.getSession();
