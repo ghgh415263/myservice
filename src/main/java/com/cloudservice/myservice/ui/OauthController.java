@@ -20,7 +20,6 @@ public class OauthController {
     @GetMapping("/login/oauth2/code/kakao")
     public String kakaoCallback(@RequestParam String code, HttpServletRequest httpServletRequest){
 
-        log.info("asd");
         Long loginMemberId = oauthService.login(code);
 
         HttpSession session = httpServletRequest.getSession();
