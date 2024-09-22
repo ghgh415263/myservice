@@ -40,6 +40,6 @@ public class JoinController {
             return "member/joinForm";
         }
 
-        return "joinComplete";
+        return "member/joinComplete";
     }
 }
