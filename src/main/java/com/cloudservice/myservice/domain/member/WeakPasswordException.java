@@ -1,4 +1,4 @@
-package com.cloudservice.myservice.domain;
+package com.cloudservice.myservice.domain.member;
 
 public class WeakPasswordException extends RuntimeException{
     public WeakPasswordException(){

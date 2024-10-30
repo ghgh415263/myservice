@@ -1,4 +1,4 @@
-package com.cloudservice.myservice.domain;
+package com.cloudservice.myservice.domain.member;
 
 import com.cloudservice.myservice.OauthYml;
 import lombok.RequiredArgsConstructor;

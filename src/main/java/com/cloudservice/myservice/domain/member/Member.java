@@ -1,5 +1,6 @@
-package com.cloudservice.myservice.domain;
+package com.cloudservice.myservice.domain.member;
 
+import com.cloudservice.myservice.domain.BaseUpdateEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -20,10 +21,10 @@ public class Member extends BaseUpdateEntity {
     @Column(nullable = false)
     private LoginProviderType loginProviderType;
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private String loginId;
 
-    @Column(nullable = false)
+    @Column
     private String password;
 
     @Column(unique = true)

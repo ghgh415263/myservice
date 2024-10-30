@@ -1,11 +1,11 @@
 package com.cloudservice.myservice.application;
 
-import com.cloudservice.myservice.domain.LoginProviderType;
-import com.cloudservice.myservice.domain.Member;
-import com.cloudservice.myservice.domain.MemberRepository;
-import com.cloudservice.myservice.domain.KaKaoAccessTokenRes;
-import com.cloudservice.myservice.domain.KakaoMember;
-import com.cloudservice.myservice.domain.OauthProvider;
+import com.cloudservice.myservice.domain.member.LoginProviderType;
+import com.cloudservice.myservice.domain.member.Member;
+import com.cloudservice.myservice.domain.member.MemberRepository;
+import com.cloudservice.myservice.domain.member.KaKaoAccessTokenRes;
+import com.cloudservice.myservice.domain.member.KakaoMember;
+import com.cloudservice.myservice.domain.member.OauthProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

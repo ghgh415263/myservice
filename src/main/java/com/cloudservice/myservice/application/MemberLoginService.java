@@ -1,7 +1,7 @@
 package com.cloudservice.myservice.application;
 
-import com.cloudservice.myservice.domain.PasswordEncoder;
-import com.cloudservice.myservice.domain.MemberRepository;
+import com.cloudservice.myservice.domain.member.PasswordEncoder;
+import com.cloudservice.myservice.domain.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

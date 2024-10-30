@@ -1,4 +1,4 @@
-package com.cloudservice.myservice.domain;
+package com.cloudservice.myservice.domain.member;
 
 public interface PasswordEncoder {
     String hashPassword(String raw);

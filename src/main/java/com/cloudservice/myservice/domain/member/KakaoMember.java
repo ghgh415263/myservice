@@ -1,4 +1,4 @@
-package com.cloudservice.myservice.domain;
+package com.cloudservice.myservice.domain.member;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

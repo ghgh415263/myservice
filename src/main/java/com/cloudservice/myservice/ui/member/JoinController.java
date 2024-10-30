@@ -1,8 +1,8 @@
-package com.cloudservice.myservice.ui;
+package com.cloudservice.myservice.ui.member;
 
 import com.cloudservice.myservice.application.MemberSaveReq;
 import com.cloudservice.myservice.application.MemberSaveService;
-import com.cloudservice.myservice.domain.WeakPasswordException;
+import com.cloudservice.myservice.domain.member.WeakPasswordException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;

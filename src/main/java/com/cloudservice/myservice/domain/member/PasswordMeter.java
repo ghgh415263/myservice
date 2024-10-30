@@ -1,4 +1,4 @@
-package com.cloudservice.myservice.domain;
+package com.cloudservice.myservice.domain.member;
 
 import org.springframework.stereotype.Component;
 

@@ -1,6 +1,6 @@
 package com.cloudservice.myservice.infra;
 
-import com.cloudservice.myservice.domain.PasswordEncoder;
+import com.cloudservice.myservice.domain.member.PasswordEncoder;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class BcryptPasswordEncoder implements PasswordEncoder {

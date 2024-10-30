@@ -1,4 +1,4 @@
-package com.cloudservice.myservice.domain;
+package com.cloudservice.myservice.domain.member;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
