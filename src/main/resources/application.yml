@@ -6,6 +6,7 @@ spring:
     import:
       - classpath:/oauth.yml
       - classpath:/actuator.yml
+      - classpath:/auth.yml
 
   jpa:
     properties:
