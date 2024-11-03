@@ -26,7 +26,7 @@ public class TokenProvider {
     public Token generateToken(Long id){
 
         Instant issuedAt = Instant.now().truncatedTo(ChronoUnit.SECONDS);
-        Instant expiration = issuedAt.plus(authYml.getAccessTokenExpiredTime(), ChronoUnit.SECONDS);
+        Instant expiration = issuedAt.plus(authYml.getAccessTokenExpiredTime(), ChronoUnit.HOURS);
 
         String jwtToken = Jwts.builder()
                 .claim("id", id)

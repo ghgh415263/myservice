@@ -23,7 +23,7 @@ public class TokenProviderTest {
 
     private String encodedSecretKey = "VG9rZW5Qcm92aWRlclRlc3RUb2tlblByb3ZpZGVyVGVzdFRva2VuUHJvdmlkZXJUZXN0VG9rZW5Qcm92aWRlclRlc3Q=";
 
-    private int accessTokenExpiredTime = 1800;
+    private int accessTokenExpiredTime = 24;
 
     @BeforeEach
     public void setUp() {
@@ -40,7 +40,7 @@ public class TokenProviderTest {
     void 토큰에서_ID가져옴(){
 
         Instant issuedAt = Instant.now().truncatedTo(ChronoUnit.SECONDS);
-        Instant expiration = issuedAt.plus(accessTokenExpiredTime, ChronoUnit.SECONDS);
+        Instant expiration = issuedAt.plus(accessTokenExpiredTime, ChronoUnit.HOURS);
 
         String jwtToken = Jwts.builder()
                 .claim("id", 12)
@@ -73,7 +73,7 @@ public class TokenProviderTest {
     void SecretKey가_다른_토큰(){
 
         Instant issuedAt = Instant.now().truncatedTo(ChronoUnit.SECONDS);
-        Instant expiration = issuedAt.plus(accessTokenExpiredTime, ChronoUnit.SECONDS);
+        Instant expiration = issuedAt.plus(accessTokenExpiredTime, ChronoUnit.HOURS);
 
         String jwtToken = Jwts.builder()
                 .claim("id", 12)
