@@ -6,8 +6,10 @@ import io.jsonwebtoken.security.Keys;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -19,7 +21,7 @@ public class TokenProviderTest {
 
     private String encodedSecretKey = "VG9rZW5Qcm92aWRlclRlc3RUb2tlblByb3ZpZGVyVGVzdFRva2VuUHJvdmlkZXJUZXN0VG9rZW5Qcm92aWRlclRlc3Q=";
 
-    private int accessTokenExpiredTime = 180000;
+    private int accessTokenExpiredTime = 1800;
 
     @BeforeEach
     public void setUp() {
@@ -35,10 +37,13 @@ public class TokenProviderTest {
     @Test
     void 토큰에서_ID가져옴(){
 
-        Date now = Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant());
+        Instant issuedAt = Instant.now().truncatedTo(ChronoUnit.SECONDS);
+        Instant expiration = issuedAt.plus(accessTokenExpiredTime, ChronoUnit.SECONDS);
+
         String jwtToken = Jwts.builder()
                 .claim("id", 12)
-                .expiration(new Date(now.getTime() + 5000))
+                .issuedAt(Date.from(issuedAt))
+                .expiration(Date.from(expiration))
                 .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(encodedSecretKey)))
                 .compact();
 
@@ -48,10 +53,13 @@ public class TokenProviderTest {
     @Test
     void 만료된_토큰(){
 
-        Date now = Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant());
+        Instant issuedAt = Instant.now().truncatedTo(ChronoUnit.SECONDS).minus(10, ChronoUnit.SECONDS);
+        Instant expiration = issuedAt.minus(1, ChronoUnit.SECONDS);
+
         String jwtToken = Jwts.builder()
                 .claim("id", 12)
-                .expiration(new Date(now.getTime()-1000))
+                .issuedAt(Date.from(issuedAt))
+                .expiration(Date.from(expiration))
                 .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(encodedSecretKey)))
                 .compact();
 
@@ -62,10 +70,13 @@ public class TokenProviderTest {
     @Test
     void SecretKey가_다른_토큰(){
 
-        Date now = Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant());
+        Instant issuedAt = Instant.now().truncatedTo(ChronoUnit.SECONDS);
+        Instant expiration = issuedAt.plus(accessTokenExpiredTime, ChronoUnit.SECONDS);
+
         String jwtToken = Jwts.builder()
                 .claim("id", 12)
-                .expiration(new Date(now.getTime()+5000))
+                .issuedAt(Date.from(issuedAt))
+                .expiration(Date.from(expiration))
                 .signWith(Keys.hmacShaKeyFor("이것은 문제가 있는 시크릿키입니다.".getBytes()))
                 .compact();
 

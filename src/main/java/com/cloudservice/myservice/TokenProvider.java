@@ -3,6 +3,7 @@ package com.cloudservice.myservice;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
@@ -11,8 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 @Slf4j
@@ -23,10 +24,14 @@ public class TokenProvider {
     private final AuthYml authYml;
 
     public Token generateToken(Long id){
-        Date now = Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant());
+
+        Instant issuedAt = Instant.now().truncatedTo(ChronoUnit.SECONDS);
+        Instant expiration = issuedAt.plus(authYml.getAccessTokenExpiredTime(), ChronoUnit.SECONDS);
+
         String jwtToken = Jwts.builder()
                 .claim("id", id)
-                .expiration(new Date(now.getTime() + authYml.getAccessTokenExpiredTime()))
+                .issuedAt(Date.from(issuedAt))
+                .expiration(Date.from(expiration))
                 .signWith(getSecretKey())
                 .compact();
         return new Token(jwtToken);
@@ -45,7 +50,7 @@ public class TokenProvider {
                     .parseClaimsJws(jwtToken)
                     .getPayload();
             return claims;
-        } catch (SignatureException | ExpiredJwtException e) {
+        } catch (SignatureException | ExpiredJwtException | MalformedJwtException e) {
             throw new InValidTokenException(e);
         }
     }
