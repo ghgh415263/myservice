@@ -3,7 +3,7 @@ package com.cloudservice.myservice;
 import com.cloudservice.myservice.global.auth.AuthYml;
 import com.cloudservice.myservice.global.auth.InValidTokenException;
 import com.cloudservice.myservice.global.auth.Token;
-import com.cloudservice.myservice.global.auth.TokenProvider;
+import com.cloudservice.myservice.global.auth.TokenManager;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -17,9 +17,9 @@ import java.util.Date;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
-public class TokenProviderTest {
+public class TokenManagerTest {
 
-    private TokenProvider tokenProvider;
+    private TokenManager tokenManager;
 
     private String encodedSecretKey = "VG9rZW5Qcm92aWRlclRlc3RUb2tlblByb3ZpZGVyVGVzdFRva2VuUHJvdmlkZXJUZXN0VG9rZW5Qcm92aWRlclRlc3Q=";
 
@@ -27,12 +27,12 @@ public class TokenProviderTest {
 
     @BeforeEach
     public void setUp() {
-        tokenProvider = new TokenProvider(new AuthYml(encodedSecretKey, accessTokenExpiredTime));
+        tokenManager = new TokenManager(new AuthYml(encodedSecretKey, accessTokenExpiredTime));
     }
 
     @Test
     void 토큰_생성(){
-        Token token = tokenProvider.generateToken(111l);
+        Token token = tokenManager.generateToken(111l);
         assertThat(token.getAccessToken()).isNotNull();
     }
 
@@ -49,7 +49,7 @@ public class TokenProviderTest {
                 .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(encodedSecretKey)))
                 .compact();
 
-        assertThat(tokenProvider.getMemberId(jwtToken)).isEqualTo(12);
+        assertThat(tokenManager.getMemberId(jwtToken)).isEqualTo(12);
     }
 
     @Test
@@ -65,7 +65,7 @@ public class TokenProviderTest {
                 .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(encodedSecretKey)))
                 .compact();
 
-        assertThatThrownBy(() -> tokenProvider.getMemberId(jwtToken))
+        assertThatThrownBy(() -> tokenManager.getMemberId(jwtToken))
                 .isInstanceOf(InValidTokenException.class);
     }
 
@@ -82,7 +82,7 @@ public class TokenProviderTest {
                 .signWith(Keys.hmacShaKeyFor("이것은 문제가 있는 시크릿키입니다.".getBytes()))
                 .compact();
 
-        assertThatThrownBy(() -> tokenProvider.getMemberId(jwtToken))
+        assertThatThrownBy(() -> tokenManager.getMemberId(jwtToken))
                 .isInstanceOf(InValidTokenException.class);
     }
 

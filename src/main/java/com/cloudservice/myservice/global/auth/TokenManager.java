@@ -19,7 +19,7 @@ import java.util.Date;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class TokenProvider {
+public class TokenManager {
 
     private final AuthYml authYml;
 

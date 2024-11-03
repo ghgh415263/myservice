@@ -23,7 +23,7 @@ import java.util.Arrays;
 public class AuthFilter extends OncePerRequestFilter {
 
     public static final String AUTHORIZATION_HEADER = "Authorization";
-    private final TokenProvider tokenProvider;
+    private final TokenManager tokenManager;
     private final MemberAuthDetailService memberAuthDetailService;
 
     @Override
@@ -39,7 +39,7 @@ public class AuthFilter extends OncePerRequestFilter {
             Cookie cookie = getAuthCookie(request);
             if (cookie != null) {
                 String token = cookie.getValue();
-                MemberAuthDetail memberAuthDetail = memberAuthDetailService.getMemberAuthDetail(tokenProvider.getMemberId(token));
+                MemberAuthDetail memberAuthDetail = memberAuthDetailService.getMemberAuthDetail(tokenManager.getMemberId(token));
                 MemberAuthDetailHolder.set(memberAuthDetail);
             }
 

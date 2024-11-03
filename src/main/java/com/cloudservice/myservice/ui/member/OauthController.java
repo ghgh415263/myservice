@@ -1,7 +1,7 @@
 package com.cloudservice.myservice.ui.member;
 
 import com.cloudservice.myservice.global.auth.Token;
-import com.cloudservice.myservice.global.auth.TokenProvider;
+import com.cloudservice.myservice.global.auth.TokenManager;
 import com.cloudservice.myservice.application.OauthService;
 import io.micrometer.core.annotation.Counted;
 import jakarta.servlet.http.Cookie;
@@ -19,7 +19,7 @@ public class OauthController {
 
     private final OauthService oauthService;
 
-    private final TokenProvider tokenProvider;
+    private final TokenManager tokenManager;
 
     @Counted("oauth.login")
     @GetMapping("/login/oauth2/code/kakao")
@@ -27,7 +27,7 @@ public class OauthController {
 
         Long loginMemberId = oauthService.login(code);
 
-        Token token = tokenProvider.generateToken(loginMemberId);
+        Token token = tokenManager.generateToken(loginMemberId);
 
         Cookie cookie = new Cookie("Authorization", token.getAccessToken());
         cookie.setDomain("localhost");
