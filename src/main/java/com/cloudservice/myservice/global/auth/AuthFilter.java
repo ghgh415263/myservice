@@ -2,14 +2,13 @@ package com.cloudservice.myservice.global.auth;
 
 import com.cloudservice.myservice.application.MemberAuthDetail;
 import com.cloudservice.myservice.application.MemberAuthDetailService;
-import com.cloudservice.myservice.global.auth.MemberAuthDetailHolder;
-import com.cloudservice.myservice.global.auth.TokenProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -17,6 +16,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.Arrays;
 
+@Slf4j
 @Component
 @Order(2)
 @RequiredArgsConstructor
@@ -36,17 +36,7 @@ public class AuthFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
-            Cookie[] cookies = request.getCookies();
-            if (cookies == null){
-                filterChain.doFilter(request, response);
-                return;
-            }
-
-            Cookie cookie = Arrays.stream(cookies)
-                    .filter(c -> c.getName().equals(AUTHORIZATION_HEADER))
-                    .findAny()
-                    .orElse(null);
-
+            Cookie cookie = getAuthCookie(request);
             if (cookie != null) {
                 String token = cookie.getValue();
                 MemberAuthDetail memberAuthDetail = memberAuthDetailService.getMemberAuthDetail(tokenProvider.getMemberId(token));
@@ -55,8 +45,25 @@ public class AuthFilter extends OncePerRequestFilter {
 
             filterChain.doFilter(request, response);
         }
+        catch (InValidTokenException e) {
+            Cookie cookie = new Cookie(AUTHORIZATION_HEADER, null);
+            cookie.setMaxAge(0);
+            response.addCookie(cookie);
+            filterChain.doFilter(request, response);
+        }
         finally {
             MemberAuthDetailHolder.clear();
         }
+    }
+
+    private Cookie getAuthCookie(HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
+        if (cookies == null)
+            return null;
+
+        return Arrays.stream(cookies)
+                .filter(c -> c.getName().equals(AUTHORIZATION_HEADER))
+                .findAny()
+                .orElse(null);
     }
 }

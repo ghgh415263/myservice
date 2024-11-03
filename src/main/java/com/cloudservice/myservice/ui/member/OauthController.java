@@ -1,5 +1,6 @@
 package com.cloudservice.myservice.ui.member;
 
+import com.cloudservice.myservice.global.auth.Token;
 import com.cloudservice.myservice.global.auth.TokenProvider;
 import com.cloudservice.myservice.application.OauthService;
 import io.micrometer.core.annotation.Counted;
@@ -26,10 +27,14 @@ public class OauthController {
 
         Long loginMemberId = oauthService.login(code);
 
-        Cookie cookie = new Cookie("Authorization", tokenProvider.generateToken(loginMemberId).getAccessToken());
+        Token token = tokenProvider.generateToken(loginMemberId);
+
+        Cookie cookie = new Cookie("Authorization", token.getAccessToken());
         cookie.setDomain("localhost");
         cookie.setPath("/");
         cookie.setHttpOnly(true);
+        cookie.setMaxAge((24*60*60)-5);
+
         response.addCookie(cookie);
 
         return "redirect:/";
