@@ -1,4 +1,4 @@
-package com.cloudservice.myservice;
+package com.cloudservice.myservice.global.auth;
 
 public class InValidTokenException extends RuntimeException {
 

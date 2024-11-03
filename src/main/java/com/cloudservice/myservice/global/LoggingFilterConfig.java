@@ -1,4 +1,4 @@
-package com.cloudservice.myservice;
+package com.cloudservice.myservice.global;
 
 import jakarta.servlet.*;
 import org.slf4j.MDC;

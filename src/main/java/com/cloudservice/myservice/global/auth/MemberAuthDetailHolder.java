@@ -1,4 +1,4 @@
-package com.cloudservice.myservice;
+package com.cloudservice.myservice.global.auth;
 
 import com.cloudservice.myservice.application.MemberAuthDetail;
 import org.springframework.core.NamedThreadLocal;

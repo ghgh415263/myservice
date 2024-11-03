@@ -1,4 +1,4 @@
-package com.cloudservice.myservice;
+package com.cloudservice.myservice.global.auth;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

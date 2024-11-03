@@ -1,4 +1,4 @@
-package com.cloudservice.myservice;
+package com.cloudservice.myservice.global;
 
 import io.micrometer.core.aop.CountedAspect;
 import io.micrometer.core.instrument.MeterRegistry;

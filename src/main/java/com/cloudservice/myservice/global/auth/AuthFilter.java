@@ -1,7 +1,9 @@
-package com.cloudservice.myservice;
+package com.cloudservice.myservice.global.auth;
 
 import com.cloudservice.myservice.application.MemberAuthDetail;
 import com.cloudservice.myservice.application.MemberAuthDetailService;
+import com.cloudservice.myservice.global.auth.MemberAuthDetailHolder;
+import com.cloudservice.myservice.global.auth.TokenProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;

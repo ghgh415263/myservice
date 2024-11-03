@@ -1,6 +1,6 @@
 package com.cloudservice.myservice.ui.member;
 
-import com.cloudservice.myservice.TokenProvider;
+import com.cloudservice.myservice.global.auth.TokenProvider;
 import com.cloudservice.myservice.application.OauthService;
 import io.micrometer.core.annotation.Counted;
 import jakarta.servlet.http.Cookie;
