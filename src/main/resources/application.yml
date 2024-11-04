@@ -1,3 +1,10 @@
+server:
+  servlet:
+    session:
+      tracking-modes: cookie
+      cookie:
+        max-age: -1
+
 spring:
   application:
     name: myservice
